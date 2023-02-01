@@ -52,7 +52,7 @@ def a_star_search(start, end, agent):
                 current = parents[current]
                 if current not in path:
                     path.append(current)
-            print("cost: ", next_cost)
+            print("cost  for ", agent, ": ", next_cost)
             return path[::-1]
         # Mark the current node as visited
         visited_nodes.add(current)
@@ -95,8 +95,21 @@ def a_star_search(start, end, agent):
 #main function
 def main():
     # Run the A* search for R1
-    path__For_R1 = a_star_search(start_position, end_position, "R1")
-    print(f"Path for R1: {path__For_R1}")
+
+    # Get dynamic start position
+    input_str = input("Please Enter the start position : ")
+    try:
+        list =(str.split(input_str, ","))
+        start_position = tuple(map(int, list))
+        if(start_position[0]>6  or start_position[0]<0 or start_position[1]>6 or start_position[1]< 0):
+            raise Exception("Invalid Input")
+    except:
+        print ("Invalid Input")
+    else:
+        path__For_R1 = a_star_search(start_position, end_position, "R1")
+        path_for_G1 = a_star_search(start_position,end_position,"G1")
+        print(f"Path for R1: {path__For_R1}")
+        print(f"Path for G!: {path_for_G1}")
     # Run the A* search for G1
     #path__For_G1 = a_star(start_position, end_position, "G1")
     #print(f"Path for G1: {path__For_G1}")
@@ -111,8 +124,9 @@ matrix = [
     ["R", "G", "G", "G", "R", "G"],
     ["G", "G", "G", "R", "G", "G"],
 ]
-# Define the start and goal positions
-start_position = (5, 4)
+
+
+# Define the goal positions
 end_position = (2, 3)
 
 # Define the movement directions and costs
